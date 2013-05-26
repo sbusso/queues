@@ -1,55 +1,13 @@
 require 'rubygems'
 require 'bundler/setup'
-
 Bundler.require
+
+require './lib/redis_object'
+require './lib/worker'
 
 redis = Redis.new(:driver => :hiredis)
 
 waiting_list = 'waiting_list'
-
-
-class RedisObject
-  def initialize(redis, name)
-    @redis = redis
-    @_key = name
-  end
-
-  def list
-    @redis.lrange @_key, 0, (@redis.llen @_key)
-  end
-
-  def empty
-    @redis.del @_key
-  end
-
-  def members
-    @redis.smembers @_key
-  end
-
-  def inspect(method)
-    %(#{"%-18s:" % @_key} #{self.send method})
-  end
-
-  private
-
-  def method_missing (method_name, *args, &block)
-    return @redis.send(method_name, @_key, *args, &block) if @redis.respond_to?(method_name)
-    super(method_name, @_key, *args, &block)
-  end
-end
-
-
-# set of waiting queues
-# list of waiting queue
-# pop a queue to start a job
-# remove from set when job ends
-# if message wait in queue then add to set
-#
-
-# available queues: set
-# waiting queues: set + list
-# working queues: set
-
 
 available_queues = RedisObject.new(redis, 'available_queues')
 waiting_queues = RedisObject.new(redis, 'waiting_queues')
@@ -77,28 +35,14 @@ end
 
 
 class Broker
+  # def
 end
 
 
-class Worker
-  def initialize(number)
-    @number = number
-  end
-
-  def inspect
-    "worker_#{@number}"
-  end
-
-  def start_work
-
-  end
-
-  def perform
-
-  end
-
-  def end_work
-
+class Producer
+  def send_message(routing, message)
+    # broker.
   end
 end
+
 
