@@ -1,6 +1,11 @@
 class Worker
-  def initialize(number)
+  def initialize(n)
+    @queue = @@queue
     @number = number
+  end
+
+  def queue
+    @queue
   end
 
   def inspect
@@ -11,9 +16,6 @@ class Worker
 
   end
 
-  def perform
-    sleep random(20) + 1
-  end
 
   def end_work
 

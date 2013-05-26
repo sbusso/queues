@@ -1,0 +1,3 @@
+class DynamicQueue < Queue
+
+end

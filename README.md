@@ -10,6 +10,7 @@ This code aims to help setting up a queue management with specific needs:
 * job1 and job2 cannot operate at same time: latency, timeout
 * queue 100 messages for job1
 * result of job1 is queued for job2
+* * share workers among queues
 
 Looking at RabbitMQ, ZeroMQ, Sidekiq
 
