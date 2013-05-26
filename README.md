@@ -1,9 +1,15 @@
-# Scope
+# Spec
 
 This code aims to help setting up a queue management with specific needs:
 * multitenant application
 * numner of worker per tenant is limited
 * 1 worker / job / time
+* sequential jobs
+* dynamic queues ? depend on how many consumer
+* on consumer will send job1 and job2 in sequence for 100 messages.
+* job1 and job2 cannot operate at same time: latency, timeout
+* queue 100 messages for job1
+* result of job1 is queued for job2
 
 Looking at RabbitMQ, ZeroMQ, Sidekiq
 
